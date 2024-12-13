@@ -1,179 +1,312 @@
 package main
 
 import (
-	"bufio"
-	"context"
+	"database/sql"
 	"fmt"
+	"html/template"
 	"log"
-	"os"
-	"strings"
+	"net/http"
+	"strconv"
 
-	"github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgxpool"
+	_ "github.com/lib/pq" // импортируем pq для работы с PostgreSQL
 )
 
-func main() {
-	// Подключение к базе данных
-	connStr := "postgres://postgres:123@localhost:5432/postgres"
-	dbpool := connectToDB(connStr)
-	defer dbpool.Close()
+var db *sql.DB
 
-	// Получение и вывод таблиц и данных
-	processTables(dbpool)
-
-	// Ввод данных в таблицу
-	fmt.Println("\nВведите название таблицы для добавления данных:")
-	reader := bufio.NewReader(os.Stdin)
-	tableName, _ := reader.ReadString('\n')
-	tableName = strings.TrimSpace(tableName)
-	insertIntoTable(dbpool, tableName)
+// Структура для продукта
+type Product struct {
+	ID    int
+	Name  string
+	Price float64
 }
 
-// Подключение к базе данных PostgreSQL
-func connectToDB(connStr string) *pgxpool.Pool {
-	dbpool, err := pgxpool.New(context.Background(), connStr)
+type Test struct {
+	ID      int
+	Name    string
+	Surname string
+}
+
+// Инициализация соединения с базой данных
+func init() {
+	var err error
+	// Строка подключения к PostgreSQL
+	connStr := "user=postgres dbname=postgres password=password host=localhost port=5432 sslmode=disable"
+	db, err = sql.Open("postgres", connStr)
 	if err != nil {
-		log.Fatalf("Не удалось подключиться к базе данных: %v\n", err)
+		log.Fatal(err)
 	}
-	return dbpool
+
+	// Проверка соединения
+	err = db.Ping()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
-// Обработка таблиц: вывод имен таблиц и их данных
-func processTables(dbpool *pgxpool.Pool) {
-	// Запрос для получения списка таблиц
-	queryTables := `
-		SELECT table_name
-		FROM information_schema.tables
-		WHERE table_schema = 'public'
-	`
-
-	// Выполняем запрос
-	rows, err := dbpool.Query(context.Background(), queryTables)
+// Функция для извлечения данных из базы данных
+func getProducts() ([]Product, error) {
+	rows, err := db.Query("SELECT id, name, price FROM products")
 	if err != nil {
-		log.Fatalf("Ошибка выполнения запроса для получения таблиц: %v\n", err)
+		return nil, err
 	}
 	defer rows.Close()
 
-	// Перебираем таблицы
-	fmt.Println("Значения таблиц в схеме 'public':")
+	var products []Product
 	for rows.Next() {
-		var tableName string
-		if err := rows.Scan(&tableName); err != nil {
-			log.Fatalf("Ошибка чтения названия таблицы: %v\n", err)
+		var p Product
+		if err := rows.Scan(&p.ID, &p.Name, &p.Price); err != nil {
+			return nil, err
 		}
-
-		// Обрабатываем текущую таблицу
-		processTableData(dbpool, tableName)
+		products = append(products, p)
 	}
 
-	// Проверяем ошибки итерации
-	if rows.Err() != nil {
-		log.Fatalf("Ошибка при итерации по таблицам: %v\n", rows.Err())
+	if err := rows.Err(); err != nil {
+		return nil, err
 	}
+	return products, nil
 }
 
-// Обработка данных для конкретной таблицы
-func processTableData(dbpool *pgxpool.Pool, tableName string) {
-	fmt.Printf("\nТаблица: %s\n", tableName)
-	fmt.Println("Данные (первые 10 строк):")
-
-	// Формируем запрос для получения данных таблицы
-	queryData := fmt.Sprintf("SELECT * FROM %s LIMIT 10", tableName)
-
-	// Выполняем запрос
-	dataRows, err := dbpool.Query(context.Background(), queryData)
+func getTest() ([]Test, error) {
+	rows, err := db.Query("SELECT id, name, surname FROM test")
 	if err != nil {
-		log.Printf("Ошибка получения данных из таблицы %s: %v\n", tableName, err)
+		return nil, err
+	}
+	defer rows.Close()
+
+	var tests []Test
+	for rows.Next() {
+		var t Test
+		if err := rows.Scan(&t.ID, &t.Name, &t.Surname); err != nil {
+			return nil, err
+		}
+		tests = append(tests, t)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return tests, nil
+}
+
+// Функция для добавления нового продукта в базу данных
+func addProduct(name string, price float64) error {
+	_, err := db.Exec("INSERT INTO products (name, price) VALUES ($1, $2)", name, price)
+	return err
+}
+
+func addTest(name, surname string) error {
+	_, err := db.Exec("INSERT INTO test (name, surname) VALUES ($1, $2)", name, surname)
+	return err
+}
+
+// Обработчик для отображения продуктов на веб-странице
+func productsHandler(w http.ResponseWriter, r *http.Request) {
+	// Получаем данные о продуктах
+	products, err := getProducts()
+	if err != nil {
+		http.Error(w, "Error fetching products", http.StatusInternalServerError)
 		return
 	}
-	defer dataRows.Close()
 
-	// Обрабатываем строки данных
-	printTableData(dataRows)
-}
+	// Используем шаблон для отображения данных
+	tmpl, err := template.New("products").Parse(`
+		<!DOCTYPE html>
+		<html>
+		<head>
+			<title>Products</title>
+		</head>
+		<body>
+			<h1>Product List</h1>
+			<table border="1">
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Price</th>
+				</tr>
+				{{range .}}
+				<tr>
+					<td>{{.ID}}</td>
+					<td>{{.Name}}</td>
+					<td>{{.Price}}</td>
+				</tr>
+				{{end}}
+			</table>
+			<h2>Add New Product</h2>
+			<form action="/add" method="POST">
+				<label for="name">Name:</label>
+				<input type="text" id="name" name="name" required><br>
+				<label for="price">Price:</label>
+				<input type="number" id="price" name="price" step="0.01" required><br>
+				<input type="submit" value="Add Product">
+			</form>
 
-// Вывод данных строки таблицы
-func printTableData(dataRows pgx.Rows) {
-	// Выводим названия колонок
-	columns := dataRows.FieldDescriptions()
-	for _, col := range columns {
-		fmt.Printf("%s\t", col.Name)
-	}
-	fmt.Println()
-
-	// Выводим строки данных
-	for dataRows.Next() {
-		values, err := dataRows.Values()
-		if err != nil {
-			log.Fatalf("Ошибка чтения значений строки: %v\n", err)
-		}
-		for _, value := range values {
-			fmt.Printf("%v\t", value)
-		}
-		fmt.Println()
-	}
-
-	// Проверяем ошибки итерации
-	if dataRows.Err() != nil {
-		log.Fatalf("Ошибка при итерации по данным: %v\n", dataRows.Err())
-	}
-}
-
-// Ввод новых данных в таблицу
-func insertIntoTable(dbpool *pgxpool.Pool, tableName string) {
-	reader := bufio.NewReader(os.Stdin)
-
-	// Получение информации о колонках таблицы
-	queryColumns := fmt.Sprintf(`
-		SELECT column_name 
-		FROM information_schema.columns 
-		WHERE table_name = '%s'
-	`, tableName)
-
-	rows, err := dbpool.Query(context.Background(), queryColumns)
+			<form action="http://localhost:8080/" method="get" style="display:inline;">
+				<button type="submit">main</button>
+			</form>
+			
+		</body>
+		</html>
+	`)
 	if err != nil {
-		log.Fatalf("Ошибка получения колонок таблицы %s: %v\n", tableName, err)
-	}
-	defer rows.Close()
-
-	columns := []string{}
-	for rows.Next() {
-		var columnName string
-		if err := rows.Scan(&columnName); err != nil {
-			log.Fatalf("Ошибка чтения имени колонки: %v\n", err)
-		}
-		columns = append(columns, columnName)
+		http.Error(w, "Error parsing template", http.StatusInternalServerError)
+		return
 	}
 
-	// Формирование INSERT-запроса
-	values := []string{}
-	for _, column := range columns {
-		fmt.Printf("Введите значение для колонки %s: ", column)
-		value, _ := reader.ReadString('\n')
-		values = append(values, strings.TrimSpace(value))
-	}
-
-	placeholders := []string{}
-	for i := range values {
-		placeholders = append(placeholders, fmt.Sprintf("$%d", i+1))
-	}
-
-	insertQuery := fmt.Sprintf("INSERT INTO %s (%s) VALUES (%s)", tableName, strings.Join(columns, ", "), strings.Join(placeholders, ", "))
-
-	// Выполнение INSERT-запроса
-	_, err = dbpool.Exec(context.Background(), insertQuery, interfaceSlice(values)...)
+	// Рендерим шаблон с данными
+	err = tmpl.Execute(w, products)
 	if err != nil {
-		log.Fatalf("Ошибка вставки данных в таблицу %s: %v\n", tableName, err)
+		http.Error(w, "Error executing template", http.StatusInternalServerError)
 	}
-
-	fmt.Println("Данные успешно добавлены.")
 }
 
-// Преобразование []string в []interface{} для Exec
-func interfaceSlice(slice []string) []interface{} {
-	result := make([]interface{}, len(slice))
-	for i, v := range slice {
-		result[i] = v
+func testHandler(w http.ResponseWriter, r *http.Request) {
+	test, err := getTest()
+	if err != nil {
+		http.Error(w, "Error getting test", http.StatusInternalServerError)
+		return
 	}
-	return result
+
+	tmpl, err := template.New("test").Parse(`
+		<!DOCTYPE html>
+		<html>
+		<head>
+			<title>Test</title>
+		</head>
+		<body>
+			<h1>Test List</h1>
+			<table border="1">
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Surname</th>
+				</tr>
+				{{range .}}
+				<tr>
+					<td>{{.ID}}</td>
+					<td>{{.Name}}</td>
+					<td>{{.Surname}}</td>
+				</tr>
+				{{end}}
+			</table>
+			<h2>Add New Test</h2>
+			<form action="/add_t" method="POST">
+				<label for="name">Name:</label>
+				<input type="text" id="name" name="name" required><br>
+				<label for="price">Price:</label>
+				<input type="surname" id="surname" name="surname" required><br>
+				<input type="submit" value="Add Test">
+			</form>
+
+			<form action="http://localhost:8080/" method="get" style="display:inline;">
+				<button type="submit">main</button>
+			</form>
+		
+		</body>
+		</html>
+	`)
+	if err != nil {
+		http.Error(w, "Error parsing template", http.StatusInternalServerError)
+		return
+	}
+
+	err = tmpl.Execute(w, test)
+	if err != nil {
+		http.Error(w, "Error executing template", http.StatusInternalServerError)
+	}
+}
+
+// Обработчик для добавления нового продукта
+func addProductHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
+		return
+	}
+
+	name := r.FormValue("name")
+	price := r.FormValue("price")
+	if name == "" || price == "" {
+		http.Error(w, "Name and price are required", http.StatusBadRequest)
+		return
+	}
+
+	priceValue, err := strconv.ParseFloat(price, 64)
+	if err != nil {
+		http.Error(w, "Invalid price format", http.StatusBadRequest)
+		return
+	}
+
+	err = addProduct(name, priceValue)
+	if err != nil {
+		http.Error(w, "Error adding product", http.StatusInternalServerError)
+		return
+	}
+
+	http.Redirect(w, r, "/products", http.StatusSeeOther)
+}
+
+func addTestHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
+		return
+	}
+
+	name := r.FormValue("name")
+	surname := r.FormValue("surname")
+	if name == "" || surname == "" {
+		http.Error(w, "Name and surname are required", http.StatusBadRequest)
+		return
+	}
+
+	err := addTest(name, surname)
+	if err != nil {
+		http.Error(w, "Error adding test", http.StatusInternalServerError)
+		return
+	}
+
+	http.Redirect(w, r, "/test", http.StatusSeeOther)
+}
+
+func mainPageHandler(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.New("index").Parse(`
+		<!DOCTYPE html>
+		<html>
+		<head>
+			<title>Главная страница</title>
+		</head>
+		<body>
+			<h1>Добро пожаловать!</h1>
+			<p>Выберите таблицу, нажав на кнопку ниже:</p>
+			<form action="http://localhost:8080/products" method="get" style="display:inline;">
+				<button type="submit">products</button>
+			</form>
+			<form action="http://localhost:8080/test" method="get" style="display:inline;">
+				<button type="submit">test</button>
+			</form>
+		</body>
+		</html>
+	`)
+	if err != nil {
+		http.Error(w, "Ошибка при создании шаблона", http.StatusInternalServerError)
+		return
+	}
+
+	if err := tmpl.Execute(w, nil); err != nil {
+		http.Error(w, "Ошибка при обработке шаблона", http.StatusInternalServerError)
+	}
+}
+
+func main() {
+	// Запуск HTTP-сервера
+	http.HandleFunc("/", mainPageHandler)
+	http.HandleFunc("/products", productsHandler)
+	http.HandleFunc("/add", addProductHandler)
+
+	http.HandleFunc("/test", testHandler)
+	http.HandleFunc("/add_t", addTestHandler)
+
+	// Начало работы сервера на порту 8080
+	fmt.Println("Server started at http://localhost:8080/")
+	if err := http.ListenAndServe(":8080", nil); err != nil {
+		log.Fatal(err)
+	}
 }
