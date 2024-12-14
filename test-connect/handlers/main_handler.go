@@ -11,51 +11,51 @@ func MainPageHandler(w http.ResponseWriter, r *http.Request) {
 		<html>
 		<head>
 			<title>main</title>
-		<style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-        h1 {
-            color: #4CAF50;
-            margin-bottom: 20px;
-        }
-        p {
-            margin-bottom: 30px;
-            font-size: 18px;
-        }
-        .button-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-        button:hover {
-            background-color: #45a049;
-            transform: translateY(-2px);
-        }
-        button:active {
-            transform: translateY(1px);
-        }
-    </style>
+			<style>
+				body {
+					font-family: Arial, sans-serif;
+					background-color: #f9f9f9;
+					color: #333;
+					margin: 0;
+					padding: 0;
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+					height: 100vh;
+				}
+				h1 {
+					color: #4CAF50;
+					margin-bottom: 20px;
+				}
+				p {
+					margin-bottom: 30px;
+					font-size: 18px;
+				}
+				.button-container {
+					display: flex;
+					flex-wrap: wrap;
+					justify-content: center;
+					gap: 10px;
+				}
+				button {
+					background-color: #4CAF50;
+					color: white;
+					border: none;
+					padding: 10px 20px;
+					font-size: 16px;
+					border-radius: 5px;
+					cursor: pointer;
+					transition: background-color 0.3s ease, transform 0.2s ease;
+				}
+				button:hover {
+					background-color: #45a049;
+					transform: translateY(-2px);
+				}
+				button:active {
+					transform: translateY(1px);
+				}
+			</style>
 		</head>
 		<body>
 			<h1>Добро пожаловать!</h1>
