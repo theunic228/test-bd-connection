@@ -13,7 +13,7 @@ var DB *sql.DB
 func init() {
 	var err error
 	// Строка подключения к PostgreSQL
-	connStr := "user=postgres dbname=postgres password=password host=localhost port=5432 sslmode=disable"
+	connStr := "user=21P dbname=Belov password=123 host=ngknn.ru port=5442 sslmode=disable"
 	DB, err = sql.Open("postgres", connStr)
 	if err != nil {
 		log.Fatal(err)
