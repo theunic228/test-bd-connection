@@ -22,6 +22,7 @@ func main() {
 	http.HandleFunc("/task_comments", handlers.TaskCommentsHandler)
 	http.HandleFunc("/task_history", handlers.TaskHistoryHandler)
 	http.HandleFunc("/tasks", handlers.TasksHandler)
+	http.HandleFunc("/download-csv", handlers.DownloadCSVHandler)
 
 	//http.HandleFunc("/add_departments", handlers.AddDepartmentsHandler)
 
