@@ -11,7 +11,7 @@ type Statuses struct {
 }
 
 func GetStatuses() ([]Statuses, error) {
-	rows, err := database.DB.Query("select status_id, status_name, description from \"PP\".statuses")
+	rows, err := database.DB.Query("select status_id, status_name, description from \"PPV2\".statuses")
 	if err != nil {
 		return nil, err
 	}

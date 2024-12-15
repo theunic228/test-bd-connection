@@ -15,7 +15,7 @@ type Employees struct {
 }
 
 func GetEmployees() ([]Employees, error) {
-	rows, err := database.DB.Query("select employee_id, first_name, last_name, email, \"password\", department_id, hired_date from \"PP\".employees")
+	rows, err := database.DB.Query("select employee_id, first_name, last_name, email, \"password\", department_id, hired_date from \"PPV2\".employees")
 	if err != nil {
 		return nil, err
 	}

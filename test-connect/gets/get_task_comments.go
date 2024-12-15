@@ -13,7 +13,7 @@ type TaskComments struct {
 }
 
 func GetTaskComments() ([]TaskComments, error) {
-	rows, err := database.DB.Query("select comment_id, task_id, author_id, comment_text, created_at from \"PP\".task_comments")
+	rows, err := database.DB.Query("select comment_id, task_id, author_id, comment_text, created_at from \"PPV2\".task_comments")
 	if err != nil {
 		return nil, err
 	}

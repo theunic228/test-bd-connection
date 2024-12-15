@@ -11,7 +11,7 @@ type Departments struct {
 }
 
 func GetDepartments() ([]Departments, error) {
-	rows, err := database.DB.Query("SELECT department_id, name, description FROM \"PP\".departments")
+	rows, err := database.DB.Query("SELECT department_id, name, description FROM \"PPV2\".departments")
 	if err != nil {
 		return nil, err
 	}

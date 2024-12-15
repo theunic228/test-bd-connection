@@ -10,7 +10,7 @@ type TaskAssignees struct {
 }
 
 func GetTaskAssignees() ([]TaskAssignees, error) {
-	rows, err := database.DB.Query("select task_id, employee_id from \"PP\".task_assignees")
+	rows, err := database.DB.Query("select task_id, employee_id from \"PPV2\".task_assignees")
 	if err != nil {
 		return nil, err
 	}

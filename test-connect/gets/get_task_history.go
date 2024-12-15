@@ -13,7 +13,7 @@ type TaskHistory struct {
 }
 
 func GetTaskHistory() ([]TaskHistory, error) {
-	rows, err := database.DB.Query("select history_id, task_id, action_time, action_description, performed_by from \"PP\".task_history")
+	rows, err := database.DB.Query("select history_id, task_id, action_time, action_description, performed_by from \"PPV2\".task_history")
 	if err != nil {
 		return nil, err
 	}

@@ -13,7 +13,7 @@ type Files struct {
 }
 
 func GetFiles() ([]Files, error) {
-	rows, err := database.DB.Query("select file_id, task_id, file_name, file_path, uploaded_at from \"PP\".files ")
+	rows, err := database.DB.Query("select file_id, task_id, file_name, file_path, uploaded_at from \"PPV2\".files ")
 	if err != nil {
 		return nil, err
 	}

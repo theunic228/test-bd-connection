@@ -16,7 +16,7 @@ type Tasks struct {
 }
 
 func GetTasks() ([]Tasks, error) {
-	rows, err := database.DB.Query("select task_id, title, description, status, created_by, created_at, updated_at, due_date from \"PP\".tasks")
+	rows, err := database.DB.Query("select task_id, title, description, status, created_by, created_at, updated_at, due_date from \"PPV2\".tasks")
 	if err != nil {
 		return nil, err
 	}
