@@ -132,6 +132,13 @@ func DownloadCSVHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Disposition", "attachment;filename=logs.csv")
 
 	// Создаем новый CSV writer
+	// Добавляем BOM для корректной кодировки UTF-8 в Excel
+	_, err = w.Write([]byte("\xEF\xBB\xBF"))
+	if err != nil {
+		http.Error(w, "Error writing BOM", http.StatusInternalServerError)
+		return
+	}
+
 	writer := csv.NewWriter(w)
 	defer writer.Flush()
 
