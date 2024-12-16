@@ -7,18 +7,34 @@ import (
 )
 
 func EmployeesHandler(w http.ResponseWriter, r *http.Request) {
-	// Исправляем вызов функции на существующий GetEmployees
+	// Получаем список сотрудников из пакета gets
 	employees, err := gets.GetEmployees()
 	if err != nil {
 		http.Error(w, "Error getting employees", http.StatusInternalServerError)
 		return
 	}
 
+	// Получаем список отделов
+	departments, err := gets.GetDepartments()
+	if err != nil {
+		http.Error(w, "Error getting departments", http.StatusInternalServerError)
+		return
+	}
+
+	//Создаем структуру для передачи в шаблон
+	data := struct {
+		Employees   []gets.Employees
+		Departments []gets.Departments
+	}{
+		Employees:   employees,
+		Departments: departments,
+	}
+
 	tmpl, err := template.New("employees").Parse(`
-		<!DOCTYPE html>
-		<html>
+	<!DOCTYPE html>
+	<html>
 		<head>
-			<title>employees</title>
+			<title>departments</title>
 			<style>
 				body {
 					font-family: Arial, sans-serif;
@@ -123,6 +139,40 @@ func EmployeesHandler(w http.ResponseWriter, r *http.Request) {
 				form input[type="submit"]:hover {
 					background-color: #2C6E2F;
 				}
+
+				/* Стили для выпадающего списка */
+				select {
+					width: 100%;
+					padding: 12px;
+					border: 1px solid #ccc;
+					border-radius: 8px;
+					font-size: 1rem;
+					background-color: white;
+					box-sizing: border-box;
+					transition: all 0.3s ease;
+				}
+
+				/* Стиль при фокусе на выпадающем списке */
+				select:focus {
+					border-color: #388E3C;
+					outline: none;
+					box-shadow: 0 0 5px rgba(56, 142, 60, 0.4); /* Легкое зеленое свечение */
+				}
+
+				/* Кастомизация стрелки */
+				select::-ms-expand {
+					display: none;
+				}
+
+				/* Добавление красивых стрелок для вебkit-браузеров */
+				select::-webkit-select {
+					-webkit-appearance: none;
+					appearance: none;
+					background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"%3E%3Cpath fill="none" stroke="black" stroke-width="1.5" d="M2 4l4 4 4-4"%3E%3C/path%3E%3C/svg%3E');
+					background-position: right 10px center;
+					background-repeat: no-repeat;
+					background-size: 12px 12px;
+				}
 			</style>
 		</head>
 		<body>
@@ -137,7 +187,7 @@ func EmployeesHandler(w http.ResponseWriter, r *http.Request) {
 					<th>Department_Id</th>
 					<th>Hired_Date</th>
 				</tr>
-				{{range .}}
+				{{range .Employees}}
 				<tr>
 					<td>{{.Employee_Id}}</td>
 					<td>{{.First_Name}}</td>
@@ -160,17 +210,26 @@ func EmployeesHandler(w http.ResponseWriter, r *http.Request) {
 				<input type="text" id="Email" name="Email" required><br>
 				<label for="Password">Password:</label>
 				<input type="text" id="Password" name="Password" required><br>
-				<label for="Department_Id">Department Id:</label>
-				<input type="text" id="Department_Id" name="Department_Id" required><br>
+
+				<label for="Department_Id">Department:</label>
+				<select id="Department_Id" name="Department_Id" required>
+					<option value=""></option>
+					{{range .Departments}}
+						<option value="{{.Department_Id}}">{{.Name}}</option>
+					{{end}}
+				</select><br>
+
+
 				<label for="Hired_Date">Hired Date:</label>
 				<input type="text" id="Hired_Date" name="Hired_Date" required><br>
 				<input type="submit" value="Add employees">
 			</form>
 			<form action="http://localhost:8080/" method="get" style="display:inline;">
-				<button type="submit">main</button>
+				<button type="submit">Main</button>
 			</form>
 		</body>
-		</html>
+	</html>
+
 	`)
 
 	if err != nil {
@@ -178,7 +237,8 @@ func EmployeesHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = tmpl.Execute(w, employees)
+	// Отправляем данные в шаблон
+	err = tmpl.Execute(w, data)
 	if err != nil {
 		http.Error(w, "Error executing template", http.StatusInternalServerError)
 	}

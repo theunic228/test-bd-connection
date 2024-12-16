@@ -14,11 +14,34 @@ func TasksHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	statuses, err := gets.GetStatuses()
+	if err != nil {
+		http.Error(w, "Error getting tasks", http.StatusInternalServerError)
+		return
+	}
+
+	employees, err := gets.GetEmployees()
+	if err != nil {
+		http.Error(w, "Error getting tasks", http.StatusInternalServerError)
+		return
+	}
+
+	//Создаем структуру для передачи в шаблон
+	data := struct {
+		Tasks     []gets.Tasks
+		Statuses  []gets.Statuses
+		Employees []gets.Employees
+	}{
+		Tasks:     tasks,
+		Statuses:  statuses,
+		Employees: employees,
+	}
+
 	tmpl, err := template.New("tasks").Parse(`
 		<!DOCTYPE html>
 		<html>
 		<head>
-			<title>tasks</title>
+			<title>departments</title>
 			<style>
 				body {
 					font-family: Arial, sans-serif;
@@ -123,6 +146,40 @@ func TasksHandler(w http.ResponseWriter, r *http.Request) {
 				form input[type="submit"]:hover {
 					background-color: #2C6E2F;
 				}
+
+				/* Стили для выпадающего списка */
+				select {
+					width: 100%;
+					padding: 12px;
+					border: 1px solid #ccc;
+					border-radius: 8px;
+					font-size: 1rem;
+					background-color: white;
+					box-sizing: border-box;
+					transition: all 0.3s ease;
+				}
+
+				/* Стиль при фокусе на выпадающем списке */
+				select:focus {
+					border-color: #388E3C;
+					outline: none;
+					box-shadow: 0 0 5px rgba(56, 142, 60, 0.4); /* Легкое зеленое свечение */
+				}
+
+				/* Кастомизация стрелки */
+				select::-ms-expand {
+					display: none;
+				}
+
+				/* Добавление красивых стрелок для вебkit-браузеров */
+				select::-webkit-select {
+					-webkit-appearance: none;
+					appearance: none;
+					background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"%3E%3Cpath fill="none" stroke="black" stroke-width="1.5" d="M2 4l4 4 4-4"%3E%3C/path%3E%3C/svg%3E');
+					background-position: right 10px center;
+					background-repeat: no-repeat;
+					background-size: 12px 12px;
+				}
 			</style>
 		</head>
 		<body>
@@ -138,7 +195,7 @@ func TasksHandler(w http.ResponseWriter, r *http.Request) {
 					<th>Updated_At</th>
 					<th>Due_Date</th>
 				</tr>
-				{{range .}}
+				{{range .Tasks}}
 				<tr>
 					<td>{{.Task_Id}}</td>
 					<td>{{.Title}}</td>
@@ -158,10 +215,23 @@ func TasksHandler(w http.ResponseWriter, r *http.Request) {
 				<input type="text" id="Title" name="Title" required><br>
 				<label for="Description">Description:</label>
 				<input type="text" id="Description" name="Description" required><br>
+				
 				<label for="Status">Status:</label>
-				<input type="text" id="Status" name="Status" required><br>
+				<select id="Status" name="Status" required>
+					<option value=""></option>
+					{{range .Statuses}}
+						<option value="{{.Status_Id}}">{{.Status_Name}}</option>
+					{{end}}
+				</select><br>
+				
 				<label for="Created_By">Created By:</label>
-				<input type="text" id="Created_By" name="Created_By" required><br>
+				<select id="Created_By" name="Created_By" required>
+					<option value=""></option>
+					{{range .Employees}}
+						<option value="{{.Employee_Id}}">{{.Last_Name}}</option>
+					{{end}}
+				</select><br>
+
 				<label for="Due_Date">Due Date:</label>
 				<input type="text" id="Due_Date" name="Due_Date" required><br>
 				<input type="submit" value="Add tasks">
@@ -178,7 +248,8 @@ func TasksHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = tmpl.Execute(w, tasks)
+	// Отправляем данные в шаблон
+	err = tmpl.Execute(w, data)
 	if err != nil {
 		http.Error(w, "Error executing template", http.StatusInternalServerError)
 	}

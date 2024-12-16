@@ -9,6 +9,7 @@ import (
 	_ "github.com/lib/pq" // импортируем pq для работы с PostgreSQL
 )
 
+// +TODO - add drop-down lists
 func main() {
 	// Запуск HTTP-сервера
 	http.HandleFunc("/", handlers.MainPageHandler)
