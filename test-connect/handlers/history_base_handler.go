@@ -4,7 +4,6 @@ import (
 	"encoding/csv"
 	"html/template"
 	"net/http"
-	"strconv"
 	"test-connect/gets"
 	"time"
 )
@@ -152,7 +151,7 @@ func DownloadCSVHandler(w http.ResponseWriter, r *http.Request) {
 	// Записываем данные из базы в CSV
 	for _, record := range history_base {
 		// Преобразуем History_Base_Id в строку
-		historyBaseId := strconv.Itoa(record.History_Base_Id)
+		historyBaseId := record.History_Base_Id
 
 		// Проверяем тип Create_Date (если это строка, оставляем как есть)
 		var createDate string

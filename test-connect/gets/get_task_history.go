@@ -5,15 +5,15 @@ import (
 )
 
 type TaskHistory struct {
-	History_Id         int
-	Task_Id            int
+	History_Id         string
+	Task_Id            string
 	Action_Time        string
 	Action_Description string
-	Performed_By       int
+	Performed_By       string
 }
 
 func GetTaskHistory() ([]TaskHistory, error) {
-	rows, err := database.DB.Query("select history_id, task_id, action_time, action_description, performed_by from \"PPV2\".task_history")
+	rows, err := database.DB.Query("select history_id, task_id, action_time, action_description, performed_by from \"PPV3\".task_history")
 	if err != nil {
 		return nil, err
 	}

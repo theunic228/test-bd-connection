@@ -5,18 +5,18 @@ import (
 )
 
 type Tasks struct {
-	Task_Id     int
+	Task_Id     string
 	Title       string
 	Description string
 	Status      string
-	Created_By  int
+	Created_By  string
 	Created_At  string
 	Updated_At  string
 	Due_Date    string
 }
 
 func GetTasks() ([]Tasks, error) {
-	rows, err := database.DB.Query("select task_id, title, description, status, created_by, created_at, updated_at, due_date from \"PPV2\".tasks")
+	rows, err := database.DB.Query("select task_id, title, description, status, created_by, created_at, updated_at, due_date from \"PPV3\".tasks")
 	if err != nil {
 		return nil, err
 	}

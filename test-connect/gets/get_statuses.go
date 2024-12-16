@@ -5,13 +5,13 @@ import (
 )
 
 type Statuses struct {
-	Status_Id   int
+	Status_Id   string
 	Status_Name string
 	Description string
 }
 
 func GetStatuses() ([]Statuses, error) {
-	rows, err := database.DB.Query("select status_id, status_name, description from \"PPV2\".statuses")
+	rows, err := database.DB.Query("select status_id, status_name, description from \"PPV3\".statuses")
 	if err != nil {
 		return nil, err
 	}

@@ -5,13 +5,13 @@ import (
 )
 
 type Departments struct {
-	Department_Id int
+	Department_Id string
 	Name          string
 	Description   string
 }
 
 func GetDepartments() ([]Departments, error) {
-	rows, err := database.DB.Query("SELECT department_id, name, description FROM \"PPV2\".departments")
+	rows, err := database.DB.Query("SELECT department_id, name, description FROM \"PPV3\".departments")
 	if err != nil {
 		return nil, err
 	}

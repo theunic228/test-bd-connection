@@ -5,13 +5,13 @@ import (
 )
 
 type HistoryBase struct {
-	History_Base_Id int
+	History_Base_Id string
 	Message_History string
 	Create_Date     string
 }
 
 func GetHistoryBase() ([]HistoryBase, error) {
-	rows, err := database.DB.Query("select history_base_id, message_history, create_date from \"PPV2\".history_base")
+	rows, err := database.DB.Query("select history_base_id, message_history, create_date from \"PPV3\".history_base")
 	if err != nil {
 		return nil, err
 	}

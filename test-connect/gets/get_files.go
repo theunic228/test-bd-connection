@@ -5,15 +5,15 @@ import (
 )
 
 type Files struct {
-	File_Id     int
-	Task_Id     int
+	File_Id     string
+	Task_Id     string
 	File_Name   string
 	File_Path   string
 	Uploaded_At string
 }
 
 func GetFiles() ([]Files, error) {
-	rows, err := database.DB.Query("select file_id, task_id, file_name, file_path, uploaded_at from \"PPV2\".files ")
+	rows, err := database.DB.Query("select file_id, task_id, file_name, file_path, uploaded_at from \"PPV3\".files ")
 	if err != nil {
 		return nil, err
 	}

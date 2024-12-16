@@ -5,15 +5,15 @@ import (
 )
 
 type TaskComments struct {
-	Comment_Id   int
-	Task_Id      int
-	Author_Id    int
+	Comment_Id   string
+	Task_Id      string
+	Author_Id    string
 	Comment_Text string
 	Created_At   string
 }
 
 func GetTaskComments() ([]TaskComments, error) {
-	rows, err := database.DB.Query("select comment_id, task_id, author_id, comment_text, created_at from \"PPV2\".task_comments")
+	rows, err := database.DB.Query("select comment_id, task_id, author_id, comment_text, created_at from \"PPV3\".task_comments")
 	if err != nil {
 		return nil, err
 	}

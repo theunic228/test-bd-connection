@@ -5,12 +5,12 @@ import (
 )
 
 type TaskAssignees struct {
-	Task_Id     int
-	Employee_Id int
+	Task_Id     string
+	Employee_Id string
 }
 
 func GetTaskAssignees() ([]TaskAssignees, error) {
-	rows, err := database.DB.Query("select task_id, employee_id from \"PPV2\".task_assignees")
+	rows, err := database.DB.Query("select task_id, employee_id from \"PPV3\".task_assignees")
 	if err != nil {
 		return nil, err
 	}
