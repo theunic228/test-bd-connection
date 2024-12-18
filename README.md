@@ -1,18 +1,5 @@
 # *структура проекта* 
-
-# test-connect
-## --adds
-### ----add_table.go
-## --database
-### ----db.go
-## --gets
-### ----get_table.go
-## --handlers
-### ----add_table_handler.go
-### ----table_handler.go
-## --go.mod
-## --go.sum
-## --main.go
+check repo
 
 # *описание основного функционала*
 
