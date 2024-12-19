@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+		<html>
+		<head>
+			<title>departments</title>
+            <!-- <link rel="stylesheet" href="/static/tasks_page_style.css"> -->
+		</head>
+		<body>
+			<h1>Tasks List</h1>
+			<table border="1">
+				<tr>
+					<th>Task_Id</th>
+					<th>Title</th>
+					<th>Description</th>
+					<th>Status</th>
+					<th>Created_By</th>
+					<th>Created_At</th>
+					<th>Updated_At</th>
+					<th>Due_Date</th>
+				</tr>
+				{{range .Tasks}}
+				<tr>
+					<td>{{.Task_Id}}</td>
+					<td>{{.Title}}</td>
+					<td>{{.Description}}</td>
+					<td>{{.Status}}</td>
+					<td>{{.Created_By}}</td>
+					<td>{{.Created_At}}</td>
+					<td>{{.Updated_At}}</td>
+					<td>{{.Due_Date}}</td>
+				</tr>
+				{{end}}
+			</table>
+			<br>
+			<h2>Add New Tasks</h2>
+			<form action="/add_tasks" method="POST">
+				<label for="Title">Title:</label>
+				<input type="text" id="Title" name="Title" required><br>
+				<label for="Description">Description:</label>
+				<input type="text" id="Description" name="Description" required><br>
+				
+				<label for="Status">Status:</label>
+				<select id="Status" name="Status" required>
+					<option value=""></option>
+					{{range .Statuses}}
+						<option value="{{.Status_Id}}">{{.Status_Name}}</option>
+					{{end}}
+				</select><br>
+				
+				<label for="Created_By">Created By:</label>
+				<select id="Created_By" name="Created_By" required>
+					<option value=""></option>
+					{{range .Employees}}
+						<option value="{{.Employee_Id}}">{{.Last_Name}}</option>
+					{{end}}
+				</select><br>
+
+				<label for="Due_Date">Due Date:</label>
+				<input type="text" id="Due_Date" name="Due_Date" required><br>
+				<input type="submit" value="Add tasks">
+			</form>
+			<form action="http://localhost:8080/" method="get" style="display:inline;">
+				<button type="submit">main</button>
+			</form>
+		</body>
+		</html>

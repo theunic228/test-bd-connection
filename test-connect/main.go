@@ -6,11 +6,12 @@ import (
 	"net/http"
 	"test-connect/handlers"
 
-	_ "github.com/lib/pq" // импортируем pq для работы с PostgreSQL
+	_ "github.com/lib/pq" // импортируем pq для работы с PostgreSQLf
 )
 
-// +TODO - add drop-down lists
 func main() {
+	fs := http.FileServer(http.Dir("./static"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
 	// Запуск HTTP-сервера
 	http.HandleFunc("/", handlers.MainPageHandler)
 

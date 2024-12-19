@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+		<html>
+		<head>
+			<title>statuses</title>
+            <!-- <link rel="stylesheet" href="/static/statuses_page_style.css"> -->
+		</head>
+		<body>
+			<h1>Statuses List</h1>
+			<table border="1">
+				<tr>
+					<th>Status_Id</th>
+					<th>Status_Name</th>
+					<th>Description</th>
+				</tr>
+				{{range .}}
+				<tr>
+					<td>{{.Status_Id}}</td>
+					<td>{{.Status_Name}}</td>
+					<td>{{.Description}}</td>
+				</tr>
+				{{end}}
+			</table>
+			<br>
+			<form action="http://localhost:8080/" method="get" style="display:inline;">
+				<button type="submit">main</button>
+			</form>
+		</body>
+		</html>
