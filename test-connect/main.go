@@ -6,13 +6,13 @@ import (
 	"net/http"
 	"test-connect/handlers"
 
-	_ "github.com/lib/pq" // импортируем pq для работы с PostgreSQLf
+	_ "github.com/lib/pq"
 )
 
 func main() {
 	fs := http.FileServer(http.Dir("./static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
-	// Запуск HTTP-сервера
+
 	http.HandleFunc("/", handlers.MainPageHandler)
 
 	http.HandleFunc("/departments", handlers.DepartmentsHandler)
@@ -32,12 +32,13 @@ func main() {
 
 	http.HandleFunc("/task_comments", handlers.TaskCommentsHandler)
 
-	http.HandleFunc("/task_history", handlers.TaskHistoryHandler)
-
 	http.HandleFunc("/tasks", handlers.TasksHandler)
 	http.HandleFunc("/add_tasks", handlers.AddTasksHandler)
 
-	// Начало работы сервера на порту 8080
+	http.HandleFunc("/managments", handlers.ManagmentsHandler)
+
+	http.HandleFunc("/positions", handlers.PositionsHandler)
+
 	fmt.Println()
 	fmt.Println("⡆⣐⢕⢕⢕⢕⢕⢕⢕⢕⠅⢗⢕⢕⢕⢕⢕⢕⢕⠕⠕⢕⢕⢕⢕⢕⢕⢕⢕⢕")
 	fmt.Println("⢐⢕⢕⢕⢕⢕⣕⢕⢕⠕⠁⢕⢕⢕⢕⢕⢕⢕⢕⠅⡄⢕⢕⢕⢕⢕⢕⢕⢕⢕")

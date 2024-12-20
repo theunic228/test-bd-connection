@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 	"test-connect/gets"
@@ -10,18 +11,21 @@ func TasksHandler(w http.ResponseWriter, r *http.Request) {
 	// Исправляем вызов функции на существующий GetTasks
 	tasks, err := gets.GetTasks()
 	if err != nil {
+		fmt.Println(err)
 		http.Error(w, "Error getting tasks", http.StatusInternalServerError)
 		return
 	}
 
 	statuses, err := gets.GetStatuses()
 	if err != nil {
+		fmt.Println(err)
 		http.Error(w, "Error getting tasks", http.StatusInternalServerError)
 		return
 	}
 
 	employees, err := gets.GetEmployees()
 	if err != nil {
+		fmt.Println(err)
 		http.Error(w, "Error getting tasks", http.StatusInternalServerError)
 		return
 	}

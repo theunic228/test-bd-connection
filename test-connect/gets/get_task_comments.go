@@ -1,6 +1,7 @@
 package gets
 
 import (
+	"fmt"
 	"test-connect/database"
 )
 
@@ -13,8 +14,9 @@ type TaskComments struct {
 }
 
 func GetTaskComments() ([]TaskComments, error) {
-	rows, err := database.DB.Query("select comment_id, task_id, author_id, comment_text, created_at from \"PPV3\".task_comments")
+	rows, err := database.DB.Query("select * from task_comments")
 	if err != nil {
+		fmt.Println(err)
 		return nil, err
 	}
 	defer rows.Close()
@@ -23,12 +25,14 @@ func GetTaskComments() ([]TaskComments, error) {
 	for rows.Next() {
 		var tc TaskComments
 		if err := rows.Scan(&tc.Comment_Id, &tc.Task_Id, &tc.Author_Id, &tc.Comment_Text, &tc.Created_At); err != nil {
+			fmt.Println(err)
 			return nil, err
 		}
 		task_comments = append(task_comments, tc)
 	}
 
 	if err := rows.Err(); err != nil {
+		fmt.Println(err)
 		return nil, err
 	}
 	return task_comments, nil

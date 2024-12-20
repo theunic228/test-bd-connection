@@ -1,26 +1,31 @@
 <!DOCTYPE html>
-		<html>
-		<head>
-			<title>task_assignees</title>
-            <!-- <link rel="stylesheet" href="/static/task_assignees_page_style.css"> -->
-		</head>
-		<body>
-			<h1>Task assignees List</h1>
-			<table border="1">
-				<tr>
-					<th>Task_Id</th>
-					<th>Employee_Id</th>
-				</tr>
-				{{range .}}
-				<tr>
-					<td>{{.Task_Id}}</td>
-					<td>{{.Employee_Id}}</td>
-				</tr>
-				{{end}}
-			</table>
-			<br>
-			<form action="http://localhost:8080/" method="get" style="display:inline;">
-				<button type="submit">main</button>
-			</form>
-		</body>
-		</html>
+<html>
+
+<head>
+	<title>task_assignees</title>
+	<link rel="stylesheet" href="/static/task_assignees_page_style.css">
+</head>
+
+<body>
+	<h1>Task assignees List</h1>
+	<table border="1">
+		<tr>
+			<th>Task_Assignees_Id</th>
+			<th>Task_Id</th>
+			<th>Employee_Id</th>
+		</tr>
+		{{range .}}
+		<tr>
+			<td>{{.Task_Assignees_Id}}</td>
+			<td>{{.Task_Id}}</td>
+			<td>{{.Employee_Id}}</td>
+		</tr>
+		{{end}}
+	</table>
+	<br>
+	<form action="http://localhost:8080/" method="get" style="display:inline;">
+		<button type="submit">main</button>
+	</form>
+</body>
+
+</html>

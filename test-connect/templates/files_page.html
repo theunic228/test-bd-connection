@@ -1,32 +1,35 @@
 <!DOCTYPE html>
-		<html>
-		<head>
-			<title>files</title>
-            <!-- <link rel="stylesheet" href="/static/files_page_style.css"> -->
-		</head>
-		<body>
-			<h1>Files List</h1>
-			<table border="1">
-				<tr>
-					<th>File_Id</th>
-					<th>Task_Id</th>
-					<th>File_Name</th>
-					<th>File_Path</th>
-					<th>Uploaded_At</th>
-				</tr>
-				{{range .}}
-				<tr>
-					<td>{{.File_Id}}</td>
-					<td>{{.Task_Id}}</td>
-					<td>{{.File_Name}}</td>
-					<td>{{.File_Path}}</td>
-					<td>{{.Uploaded_At}}</td>
-				</tr>
-				{{end}}
-			</table>
-			<br>
-			<form action="http://localhost:8080/" method="get" style="display:inline;">
-				<button type="submit">main</button>
-			</form>
-		</body>
-		</html>
+<html>
+
+<head>
+	<title>files</title>
+	<link rel="stylesheet" href="/static/files_page_style.css">
+</head>
+
+<body>
+	<h1>Files List</h1>
+	<table border="1">
+		<tr>
+			<th>File_Id</th>
+			<th>Comment_Id</th>
+			<th>File_Name</th>
+			<th>File_Path</th>
+			<th>Uploaded_At</th>
+		</tr>
+		{{range .}}
+		<tr>
+			<td>{{.File_Id}}</td>
+			<td>{{.Comment_Id}}</td>
+			<td>{{.File_Name}}</td>
+			<td>{{.File_Path}}</td>
+			<td>{{.Uploaded_At}}</td>
+		</tr>
+		{{end}}
+	</table>
+	<br>
+	<form action="http://localhost:8080/" method="get" style="display:inline;">
+		<button type="submit">main</button>
+	</form>
+</body>
+
+</html>

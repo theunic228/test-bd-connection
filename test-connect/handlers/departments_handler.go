@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 	"test-connect/gets"
@@ -9,6 +10,7 @@ import (
 func DepartmentsHandler(w http.ResponseWriter, r *http.Request) {
 	departments, err := gets.GetDepartments()
 	if err != nil {
+		fmt.Println(err)
 		http.Error(w, "Error getting departments", http.StatusInternalServerError)
 		return
 	}
@@ -16,12 +18,14 @@ func DepartmentsHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := template.ParseFiles("templates/departments_page.html")
 
 	if err != nil {
+		fmt.Println(err)
 		http.Error(w, "Error parsing template", http.StatusInternalServerError)
 		return
 	}
 
 	err = tmpl.Execute(w, departments)
 	if err != nil {
+		fmt.Println(err)
 		http.Error(w, "Error executing template", http.StatusInternalServerError)
 	}
 }

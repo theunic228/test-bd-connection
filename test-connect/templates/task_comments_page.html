@@ -1,32 +1,35 @@
 <!DOCTYPE html>
-		<html>
-		<head>
-			<title>task_comments</title>
-            <!-- <link rel="stylesheet" href="/static/task_comments_page_style.css"> -->
-		</head>
-		<body>
-			<h1>Task Comments List</h1>
-			<table border="1">
-				<tr>
-					<th>Comment_Id</th>
-					<th>Task_Id</th>
-					<th>Author_Id</th>
-					<th>Comment_Text</th>
-					<th>Created_At</th>
-				</tr>
-				{{range .}}
-				<tr>
-					<td>{{.Comment_Id}}</td>
-					<td>{{.Task_Id}}</td>
-					<td>{{.Author_Id}}</td>
-					<td>{{.Comment_Text}}</td>
-					<td>{{.Created_At}}</td>
-				</tr>
-				{{end}}
-			</table>
-			<br>
-			<form action="http://localhost:8080/" method="get" style="display:inline;">
-				<button type="submit">main</button>
-			</form>
-		</body>
-		</html>
+<html>
+
+<head>
+	<title>task_comments</title>
+	<link rel="stylesheet" href="/static/task_comments_page_style.css">
+</head>
+
+<body>
+	<h1>Task Comments List</h1>
+	<table border="1">
+		<tr>
+			<th>Comment_Id</th>
+			<th>Task_Id</th>
+			<th>Author_Id</th>
+			<th>Comment_Text</th>
+			<th>Created_At</th>
+		</tr>
+		{{range .}}
+		<tr>
+			<td>{{.Comment_Id}}</td>
+			<td>{{.Task_Id}}</td>
+			<td>{{.Author_Id}}</td>
+			<td>{{.Comment_Text}}</td>
+			<td>{{.Created_At}}</td>
+		</tr>
+		{{end}}
+	</table>
+	<br>
+	<form action="http://localhost:8080/" method="get" style="display:inline;">
+		<button type="submit">main</button>
+	</form>
+</body>
+
+</html>

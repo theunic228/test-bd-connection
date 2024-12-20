@@ -2,21 +2,21 @@
 <html>
 
 <head>
-	<title>statuses</title>
-	<link rel="stylesheet" href="/static/statuses_page_style.css">
+	<title>positions</title>
+	<link rel="stylesheet" href="/static/positions_page_style.css">
 </head>
 
 <body>
-	<h1>Statuses List</h1>
+	<h1>Positions List</h1>
 	<table border="1">
 		<tr>
-			<th>Status_Id</th>
-			<th>Status_Name</th>
+			<th>Position_Id</th>
+			<th>Position_Name</th>
 		</tr>
 		{{range .}}
 		<tr>
-			<td>{{.Status_Id}}</td>
-			<td>{{.Status_Name}}</td>
+			<td>{{.Position_Id}}</td>
+			<td>{{.Position_Name}}</td>
 		</tr>
 		{{end}}
 	</table>

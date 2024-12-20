@@ -1,31 +1,34 @@
 <!DOCTYPE html>
-		<html>
-		<head>
-			<title>history_base</title>
-            <!-- <link rel="stylesheet" href="/static/history_base_page_style.css"> -->
-		</head>
-		<body>
-			<h1>History Base List</h1>
-			<table border="1">
-				<tr>
-					<th>History_Base_Id</th>
-					<th>Message_History</th>
-					<th>Create_Date</th>
-				</tr>
-				{{range .}}
-				<tr>
-					<td>{{.History_Base_Id}}</td>
-					<td>{{.Message_History}}</td>
-					<td>{{.Create_Date}}</td>
-				</tr>
-				{{end}}
-			</table>
-			<br>
-            <form action="/download-csv" method="get" style="display:inline;">
-				<button type="submit">Download CSV</button>
-			</form>
-			<form action="http://localhost:8080/" method="get" style="display:inline;">
-				<button type="submit">main</button>
-			</form>
-		</body>
-		</html>
+<html>
+
+<head>
+	<title>history_base</title>
+	<!-- <link rel="stylesheet" href="/static/history_base_page_style.css"> -->
+</head>
+
+<body>
+	<h1>History Base List</h1>
+	<table border="1">
+		<tr>
+			<th>History_Base_Id</th>
+			<th>Message_History</th>
+			<th>Create_Date</th>
+		</tr>
+		{{range .}}
+		<tr>
+			<td>{{.History_Base_Id}}</td>
+			<td>{{.Message_History}}</td>
+			<td>{{.Create_Date}}</td>
+		</tr>
+		{{end}}
+	</table>
+	<br>
+	<form action="/download-csv" method="get" style="display:inline;">
+		<button type="submit">Download CSV</button>
+	</form>
+	<form action="http://localhost:8080/" method="get" style="display:inline;">
+		<button type="submit">main</button>
+	</form>
+</body>
+
+</html>

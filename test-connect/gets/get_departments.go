@@ -1,18 +1,20 @@
 package gets
 
 import (
+	"fmt"
 	"test-connect/database"
 )
 
 type Departments struct {
-	Department_Id string
-	Name          string
-	Description   string
+	Department_Id   string
+	Department_Name string
+	Managment_Id    string
 }
 
 func GetDepartments() ([]Departments, error) {
-	rows, err := database.DB.Query("SELECT department_id, name, description FROM \"PPV3\".departments")
+	rows, err := database.DB.Query("select department_id, department_name, managment_id from departments")
 	if err != nil {
+		fmt.Println(err)
 		return nil, err
 	}
 	defer rows.Close()
@@ -20,7 +22,7 @@ func GetDepartments() ([]Departments, error) {
 	var departments []Departments
 	for rows.Next() {
 		var d Departments
-		if err := rows.Scan(&d.Department_Id, &d.Name, &d.Description); err != nil {
+		if err := rows.Scan(&d.Department_Id, &d.Department_Name, &d.Managment_Id); err != nil {
 			return nil, err
 		}
 		departments = append(departments, d)

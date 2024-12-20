@@ -1,36 +1,39 @@
 <!DOCTYPE html>
-		<html>
-		<head>
-			<title>departments</title>
-            <!-- <link rel="stylesheet" href="/static/departments_page_style.css"> -->
-		</head>
-		<body>
-			<h1>Departments List</h1>
-			<table border="1">
-				<tr>
-					<th>Department_Id</th>
-					<th>Name</th>
-					<th>Description</th>
-				</tr>
-				{{range .}}
-				<tr>
-					<td>{{.Department_Id}}</td>
-					<td>{{.Name}}</td>
-					<td>{{.Description}}</td>
-				</tr>
-				{{end}}
-			</table>
-			<br>
-			<h2>Add New Department</h2>
-			<form action="/add_departments" method="POST">
-				<label for="Name">Name:</label>
-				<input type="text" id="Name" name="Name" required><br>
-				<label for="Description">Description:</label>
-				<input type="text" id="Description" name="Description" required><br>
-				<input type="submit" value="Add departments">
-			</form>
-			<form action="http://localhost:8080/" method="get" style="display:inline;">
-				<button type="submit">main</button>
-			</form>
-		</body>
-		</html>
+<html>
+
+<head>
+	<title>departments</title>
+	<link rel="stylesheet" href="/static/departments_page_style.css">
+</head>
+
+<body>
+	<h1>Departments List</h1>
+	<table border="1">
+		<tr>
+			<th>Department_Id</th>
+			<th>Department_Name</th>
+			<th>Managment_Id</th>
+		</tr>
+		{{range .}}
+		<tr>
+			<td>{{.Department_Id}}</td>
+			<td>{{.Department_Name}}</td>
+			<td>{{.Managment_Id}}</td>
+		</tr>
+		{{end}}
+	</table>
+	<br>
+	<h2>Add New Department</h2>
+	<form action="/add_departments" method="POST">
+		<label for="Name">Name:</label>
+		<input type="text" id="Name" name="Name" required><br>
+		<label for="Description">Description:</label>
+		<input type="text" id="Description" name="Description" required><br>
+		<input type="submit" value="Add departments">
+	</form>
+	<form action="http://localhost:8080/" method="get" style="display:inline;">
+		<button type="submit">main</button>
+	</form>
+</body>
+
+</html>
