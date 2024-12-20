@@ -13,7 +13,10 @@ func main() {
 	fs := http.FileServer(http.Dir("./static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
-	http.HandleFunc("/", handlers.MainPageHandler)
+	http.HandleFunc("/", handlers.AuthorizationHandler)
+	http.HandleFunc("/add_authorization", handlers.AddAuthorizationHandler)
+
+	http.HandleFunc("/main", handlers.MainPageHandler)
 
 	http.HandleFunc("/departments", handlers.DepartmentsHandler)
 	http.HandleFunc("/add_departments", handlers.AddDepartmentsHandler)
