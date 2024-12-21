@@ -2,84 +2,137 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
     margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
     padding: 20px 40px;
     color: #333;
 }
 
 h1 {
     color: #4a90e2;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    text-align: center;
+}
+
+h2 {
+    color: #333;
+    margin-top: 40px;
     margin-bottom: 10px;
 }
 
-p {
-    font-size: 1em;
-    margin-bottom: 20px;
-    color: #555;
-}
-
-.form-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
+/* Стили для таблицы */
+table {
     width: 100%;
-    max-width: 600px;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-form {
-    margin: 0;
-}
-
-input[type="submit"], button {
-    background-color: #4a90e2;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 12px;
     font-size: 1em;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    text-align: left; /* Выравнивание по левому краю по умолчанию */
 }
 
+table th {
+    background-color: #4a90e2;
+    color: white;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table tr:hover {
+    background-color: #eaf4fc;
+}
+
+/* Выравнивание для числовых данных */
+table td.number {
+    text-align: right;
+}
+
+/* Выравнивание для колонок с датами */
+table td.date {
+    text-align: center;
+}
+
+/* Выравнивание для текстовых данных */
+table td.text {
+    text-align: left;
+}
+
+/* Стиль для кнопок */
 button {
     background-color: #4a90e2;
     color: white;
     border: none;
-    padding: 10px;
-    font-size: 1em;
-    border-radius: 5px;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 250px; /* Фиксированная ширина кнопок */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Hover-эффект для кнопок */
 button:hover {
     background-color: #357ab7;
-}
-
-button:active {
-    background-color: #2b6291;
-}
-
-.last-button {
-    background-color: #2b6ea4;
-    color: #fff;
-    font-weight: bold;
-    padding: 15px 25px;
-    border-radius: 10px;
-    font-size: 1.2em;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.last-button:hover {
-    background-color: #1e5282;
     transform: scale(1.05);
 }
 
+/* Активное состояние кнопки */
+button:active {
+    background-color: #2b6291;
+    transform: scale(1);
+}
+
+/* Кнопка выхода */
+.last-button {
+    background-color: #d9534f;
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover-эффект для кнопки выхода */
+.last-button:hover {
+    background-color: #c9302c;
+    transform: scale(1.1);
+}
+
+/* Активное состояние кнопки выхода */
 .last-button:active {
-    background-color: #163d61;
-    transform: scale(0.95);
+    background-color: #ac2925;
+    transform: scale(1);
+}
+
+/* Контейнер для формы и кнопок */
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+/* Контейнер для кнопки выхода */
+.exit-button-container {
+    width: 100%;
+    margin-top: 40px;
+    text-align: center;
+}
+
+/* Отступы для текста */
+p {
+    font-size: 1.2em;
+    text-align: center;
+    margin-bottom: 20px;
 }

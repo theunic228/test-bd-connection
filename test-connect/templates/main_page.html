@@ -1,60 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 
 <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Администратор</title>
 	<link rel="stylesheet" href="/static/main_page_style.css">
 </head>
 
 <body>
-	<h1>Администратор, добро пожаловать!</h1>
-	<p>Выберите таблицу, нажав на кнопку ниже:</p>
+	<header>
+		<h1>Администратор, добро пожаловать!</h1>
+		<p>Выберите таблицу, нажав на кнопку ниже:</p>
+	</header>
 
 	<div class="form-container">
 		<form action="http://localhost:8080/managments" method="get">
-			<button type="submit">managments</button>
+			<button type="submit">Вышестоящие отделы</button>
 		</form>
 
 		<form action="http://localhost:8080/departments" method="get">
-			<button type="submit">departments</button>
+			<button type="submit">Отделы</button>
 		</form>
 
 		<form action="http://localhost:8080/positions" method="get">
-			<button type="submit">positions</button>
+			<button type="submit">Должности</button>
 		</form>
 
 		<form action="http://localhost:8080/employees" method="get">
-			<button type="submit">employees</button>
+			<button type="submit">Сотрудники</button>
 		</form>
 
 		<form action="http://localhost:8080/statuses" method="get">
-			<button type="submit">statuses</button>
+			<button type="submit">Статусы</button>
 		</form>
 
 		<form action="http://localhost:8080/tasks" method="get">
-			<button type="submit">tasks</button>
+			<button type="submit">Задачи</button>
 		</form>
 
 		<form action="http://localhost:8080/task_assignees" method="get">
-			<button type="submit">task assignees</button>
+			<button type="submit">Исполнители задач</button>
 		</form>
 
 		<form action="http://localhost:8080/task_comments" method="get">
-			<button type="submit">task comments</button>
+			<button type="submit">Комментарии задач</button>
 		</form>
 
 		<form action="http://localhost:8080/files" method="get">
-			<button type="submit">files</button>
+			<button type="submit">Файлы</button>
 		</form>
 
 		<form action="http://localhost:8080/history_base" method="get">
-			<button type="submit">history base</button>
+			<button type="submit">История изменений</button>
 		</form>
+	</div>
 
+	<div class="exit-button-container">
 		<form action="http://localhost:8080/" method="get">
-			<button type="submit" class="last-button">authorization</button>
+			<button type="submit" class="last-button">ВЫХОД</button>
 		</form>
 	</div>
 </body>
-
 
 </html>

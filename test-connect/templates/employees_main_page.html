@@ -6,29 +6,59 @@
 </head>
 
 <body>
-    <h1>{{.Last_Name}} {{.First_Name}}, добро пожаловать!</h1>
-    <p>Выберите таблицу, нажав на кнопку ниже:</p>
+    <h1>{{.Employees.Last_Name}} {{.Employees.First_Name}}, добро пожаловать!</h1>
+    <table border="1">
+        <tr>
+            <th>Код задачи</th>
+            <th>Наименование</th>
+            <th>Описание</th>
+            <th>Статус</th>
+            <th>Автор задачи</th>
+            <th>Дата создания</th>
+            <th>Дедлайн</th>
+            <th>Автор комментария</th>
+            <th>Текст комментария</th>
+            <th>Дата создания комментария</th>
+            <th>Название файла</th>
+            <th>Папка файла</th>
+            <th>Дата добавления файла</th>
+        </tr>
+        {{range .TaskDetails}}
+        <tr>
+            <td>{{.Task_Id}}</td>
+            <td>{{.Title}}</td>
+            <td>{{.Description}}</td>
+            <td>{{.Status}}</td>
+            <td>{{.Created_By}}</td>
+            <td>{{.Task_Created_At}}</td>
+            <td>{{.Due_Date}}</td>
+            <td>{{.Author_Id}}</td>
+            <td>{{.Comment_Text}}</td>
+            <td>{{.Comment_Created_At}}</td>
+            <td>{{.File_Name}}</td>
+            <td>{{.File_Path}}</td>
+            <td>{{.Uploaded_At}}</td>
+        </tr>
+        {{end}}
+    </table>
 
+    <p>Выберите таблицу, нажав на кнопку ниже:</p>
     <div class="form-container">
 
         <form action="http://localhost:8080/tasks" method="get">
-            <button type="submit">tasks</button>
-        </form>
-
-        <form action="http://localhost:8080/task_assignees" method="get">
-            <button type="submit">task assignees</button>
+            <button type="submit">Задачи</button>
         </form>
 
         <form action="http://localhost:8080/task_comments" method="get">
-            <button type="submit">task comments</button>
+            <button type="submit">Комментарии задач</button>
         </form>
 
         <form action="http://localhost:8080/files" method="get">
-            <button type="submit">files</button>
+            <button type="submit">Файлы</button>
         </form>
 
         <form action="http://localhost:8080/" method="get">
-            <button type="submit" class="last-button">authorization</button>
+            <button type="submit" class="last-button">ВЫХОД</button>
         </form>
     </div>
 </body>

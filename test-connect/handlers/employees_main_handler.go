@@ -7,7 +7,9 @@ import (
 )
 
 func EmployeesMainHandler(w http.ResponseWriter, r *http.Request) {
+
 	tmpl, err := template.ParseFiles("templates/employees_main_page.html")
+
 	if err != nil {
 		fmt.Println(err)
 		http.Error(w, "Ошибка при создании шаблона", http.StatusInternalServerError)

@@ -7,23 +7,23 @@
 </head>
 
 <body>
-	<h1>Employees List</h1>
+	<h1>Сотрудники</h1>
 	<table border="1">
 		<tr>
-			<th>Employee_id</th>
-			<th>First_Name</th>
-			<th>Last_Name</th>
-			<th>Patronymic</th>
-			<th>Email</th>
-			<th>Password</th>
-			<th>Department_Id</th>
-			<th>Position_id</th>
+			<th>Код сотрудника</th>
+			<th>Фамилия</th>
+			<th>Имя</th>
+			<th>Отчество</th>
+			<th>Логин</th>
+			<th>Пароль</th>
+			<th>Отдел</th>
+			<th>Должность</th>
 		</tr>
 		{{range .Employees}}
 		<tr>
 			<td>{{.Employee_Id}}</td>
-			<td>{{.First_Name}}</td>
 			<td>{{.Last_Name}}</td>
+			<td>{{.First_Name}}</td>
 			<td>{{.Patronymic}}</td>
 			<td>{{.Email}}</td>
 			<td>{{.Password}}</td>
@@ -33,7 +33,7 @@
 		{{end}}
 	</table>
 	<br>
-	<h2>Add New Employees</h2>
+	<h2>Добавить нового сотрудника</h2>
 	<form action="/add_employees" method="POST">
 		<label for="First_Name">First Name:</label>
 		<input type="text" id="First_Name" name="First_Name" required><br>
@@ -65,7 +65,7 @@
 		<input type="submit" value="Add employees">
 	</form>
 
-	<button onclick="history.back()">go back</button>
+	<button onclick="history.back()">Назад</button>
 </body>
 
 </html>
