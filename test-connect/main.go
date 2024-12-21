@@ -17,6 +17,7 @@ func main() {
 	http.HandleFunc("/add_authorization", handlers.AddAuthorizationHandler)
 
 	http.HandleFunc("/main", handlers.MainPageHandler)
+	http.HandleFunc("/employees_main", handlers.EmployeesMainHandler)
 
 	http.HandleFunc("/departments", handlers.DepartmentsHandler)
 	http.HandleFunc("/add_departments", handlers.AddDepartmentsHandler)

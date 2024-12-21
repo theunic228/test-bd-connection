@@ -33,6 +33,17 @@ form {
     margin: 0;
 }
 
+input[type="submit"], button {
+    background-color: #4a90e2;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
 button {
     background-color: #4a90e2;
     color: white;
@@ -51,4 +62,24 @@ button:hover {
 
 button:active {
     background-color: #2b6291;
+}
+
+.last-button {
+    background-color: #2b6ea4;
+    color: #fff;
+    font-weight: bold;
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.last-button:hover {
+    background-color: #1e5282;
+    transform: scale(1.05);
+}
+
+.last-button:active {
+    background-color: #163d61;
+    transform: scale(0.95);
 }

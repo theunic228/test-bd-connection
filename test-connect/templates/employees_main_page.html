@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="/static/main_page_style.css">
+</head>
+
+<body>
+    <h1>{{.Last_Name}} {{.First_Name}}, добро пожаловать!</h1>
+    <p>Выберите таблицу, нажав на кнопку ниже:</p>
+
+    <div class="form-container">
+
+        <form action="http://localhost:8080/tasks" method="get">
+            <button type="submit">tasks</button>
+        </form>
+
+        <form action="http://localhost:8080/task_assignees" method="get">
+            <button type="submit">task assignees</button>
+        </form>
+
+        <form action="http://localhost:8080/task_comments" method="get">
+            <button type="submit">task comments</button>
+        </form>
+
+        <form action="http://localhost:8080/files" method="get">
+            <button type="submit">files</button>
+        </form>
+
+        <form action="http://localhost:8080/" method="get">
+            <button type="submit" class="last-button">authorization</button>
+        </form>
+    </div>
+</body>
+
+
+</html>
