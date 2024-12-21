@@ -14,7 +14,7 @@ type Files struct {
 }
 
 func GetFiles() ([]Files, error) {
-	rows, err := database.DB.Query("select * from files ")
+	rows, err := database.DB.Query("select file_id, (select (select e.last_name from employees e where e.employee_id = tc.author_id) || ' добавил(-а) комментарий: ' || comment_text  as comments from task_comments tc where comment_id = f.comment_id ), f.file_name, f.file_path, f.uploaded_at from files f")
 	if err != nil {
 		return nil, err
 	}

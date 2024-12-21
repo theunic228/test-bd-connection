@@ -11,7 +11,7 @@ type TaskAssignees struct {
 }
 
 func GetTaskAssignees() ([]TaskAssignees, error) {
-	rows, err := database.DB.Query("select * from task_assignees")
+	rows, err := database.DB.Query("select task_assignees_id, (select t.title from tasks t where t.task_id = ta.task_id), (select e.last_name from employees e where e.employee_id = ta.employee_id) from task_assignees ta")
 	if err != nil {
 		return nil, err
 	}

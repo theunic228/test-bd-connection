@@ -12,7 +12,7 @@ type Departments struct {
 }
 
 func GetDepartments() ([]Departments, error) {
-	rows, err := database.DB.Query("select department_id, department_name, managment_id from departments")
+	rows, err := database.DB.Query("select department_id, department_name, (select managment_name from managments where managment_id = d.managment_id) from departments d")
 	if err != nil {
 		fmt.Println(err)
 		return nil, err

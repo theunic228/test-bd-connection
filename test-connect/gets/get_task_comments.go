@@ -14,7 +14,7 @@ type TaskComments struct {
 }
 
 func GetTaskComments() ([]TaskComments, error) {
-	rows, err := database.DB.Query("select * from task_comments")
+	rows, err := database.DB.Query("select comment_id, (select t.title from tasks t where t.task_id = tc.task_id), (select e.last_name from employees e where e.employee_id = tc.author_id), tc.comment_text, tc.created_at from task_comments tc")
 	if err != nil {
 		fmt.Println(err)
 		return nil, err
