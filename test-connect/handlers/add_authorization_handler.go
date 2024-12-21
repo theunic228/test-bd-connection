@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"test-connect/gets"
 
-	_ "github.com/lib/pq" // импортируем pq для работы с PostgreSQL
+	_ "github.com/lib/pq"
 )
 
 func AddAuthorizationHandler(w http.ResponseWriter, r *http.Request) {

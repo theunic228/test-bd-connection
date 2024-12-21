@@ -29,7 +29,6 @@ func EmployeesHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//Создаем структуру для передачи в шаблон
 	data := struct {
 		Employees   []gets.Employees
 		Departments []gets.Departments

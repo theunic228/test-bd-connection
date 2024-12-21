@@ -3,7 +3,7 @@ package adds
 import (
 	"test-connect/database"
 
-	_ "github.com/lib/pq" // импортируем pq для работы с PostgreSQL
+	_ "github.com/lib/pq"
 )
 
 func AddTasks(Title, Description, Status, Created_By, Due_Date string) error {

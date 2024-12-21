@@ -19,7 +19,6 @@ h2 {
     margin-bottom: 10px;
 }
 
-/* Стили для таблицы */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -32,7 +31,7 @@ table th, table td {
     border: 1px solid #ddd;
     padding: 12px;
     font-size: 1em;
-    text-align: left; /* Выравнивание по левому краю по умолчанию */
+    text-align: left; 
 }
 
 table th {
@@ -49,22 +48,18 @@ table tr:hover {
     background-color: #eaf4fc;
 }
 
-/* Выравнивание для числовых данных */
 table td.number {
     text-align: right;
 }
 
-/* Выравнивание для колонок с датами */
 table td.date {
     text-align: center;
 }
 
-/* Выравнивание для текстовых данных */
 table td.text {
     text-align: left;
 }
 
-/* Стиль для кнопок */
 button {
     background-color: #4a90e2;
     color: white;
@@ -78,19 +73,16 @@ button {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Hover-эффект для кнопок */
 button:hover {
     background-color: #357ab7;
     transform: scale(1.05);
 }
 
-/* Активное состояние кнопки */
 button:active {
     background-color: #2b6291;
     transform: scale(1);
 }
 
-/* Кнопка выхода */
 .last-button {
     background-color: #d9534f;
     color: white;
@@ -102,19 +94,16 @@ button:active {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Hover-эффект для кнопки выхода */
 .last-button:hover {
     background-color: #c9302c;
     transform: scale(1.1);
 }
 
-/* Активное состояние кнопки выхода */
 .last-button:active {
     background-color: #ac2925;
     transform: scale(1);
 }
 
-/* Контейнер для формы и кнопок */
 .form-container {
     display: flex;
     flex-wrap: wrap;
@@ -123,14 +112,12 @@ button:active {
     margin-top: 40px;
 }
 
-/* Контейнер для кнопки выхода */
 .exit-button-container {
     width: 100%;
     margin-top: 40px;
     text-align: center;
 }
 
-/* Отступы для текста */
 p {
     font-size: 1.2em;
     text-align: center;

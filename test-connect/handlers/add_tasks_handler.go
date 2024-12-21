@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"test-connect/adds"
 
-	_ "github.com/lib/pq" // импортируем pq для работы с PostgreSQL
+	_ "github.com/lib/pq"
 )
 
 func AddTasksHandler(w http.ResponseWriter, r *http.Request) {

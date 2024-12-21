@@ -3,7 +3,7 @@ package adds
 import (
 	"test-connect/database"
 
-	_ "github.com/lib/pq" // импортируем pq для работы с PostgreSQL
+	_ "github.com/lib/pq"
 )
 
 func AddDepartments(Name, Description string) error {
