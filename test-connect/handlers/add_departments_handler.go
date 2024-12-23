@@ -13,14 +13,15 @@ func AddDepartmentsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	Name := r.FormValue("Name")
-	Description := r.FormValue("Description")
-	if Name == "" || Description == "" {
+	Department_Name := r.FormValue("Department_Name")
+	Managment_Id := r.FormValue("Managment_Id")
+
+	if Department_Name == "" || Managment_Id == "" {
 		http.Error(w, "Name and Description are required", http.StatusBadRequest)
 		return
 	}
 
-	err := adds.AddDepartments(Name, Description)
+	err := adds.AddDepartments(Department_Name, Managment_Id)
 	if err != nil {
 		http.Error(w, "Error adding Department", http.StatusInternalServerError)
 		return

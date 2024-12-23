@@ -28,25 +28,25 @@
 			<td>{{.Email}}</td>
 			<td>{{.Password}}</td>
 			<td>{{.Department_Id}}</td>
-			<td>{{.Position_id}}</td>
+			<td>{{.Position_Id}}</td>
 		</tr>
 		{{end}}
 	</table>
 	<br>
 	<h2>Добавить нового сотрудника</h2>
 	<form action="/add_employees" method="POST">
-		<label for="First_Name">First Name:</label>
+		<label for="Last_Name">Фамилия:</label>
+		<input type="text" id="Last_Name" name="Last_Name" required><br>
+		<label for="First_Name">Имя:</label>
 		<input type="text" id="First_Name" name="First_Name" required><br>
-		<label for="Last_Name">Last Name:</label>
-		<input type="text" id="Last_Name" name="Last_Name" required><br>
-		<label for="Last_Name">Patronymic:</label>
-		<input type="text" id="Last_Name" name="Last_Name" required><br>
-		<label for="Email">Email:</label>
+		<label for="Patronymic">Отчество:</label>
+		<input type="text" id="Patronymic" name="Patronymic" required><br>
+		<label for="Email">Логин:</label>
 		<input type="text" id="Email" name="Email" required><br>
-		<label for="Password">Password:</label>
+		<label for="Password">Пароль:</label>
 		<input type="text" id="Password" name="Password" required><br>
 
-		<label for="Department_Id">Department:</label>
+		<label for="Department_Id">Отдел:</label>
 		<select id="Department_Id" name="Department_Id" required>
 			<option value=""></option>
 			{{range .Departments}}
@@ -54,7 +54,7 @@
 			{{end}}
 		</select><br>
 
-		<label for="Position_Id">Positions:</label>
+		<label for="Position_Id">Должность:</label>
 		<select id="Position_Id" name="Position_Id" required>
 			<option value=""></option>
 			{{range .Positions}}
@@ -62,7 +62,7 @@
 			{{end}}
 		</select><br>
 		<br>
-		<input type="submit" value="Add employees">
+		<input type="submit" value="Добавить сотрудника">
 	</form>
 
 	<button onclick="history.back()">Назад</button>

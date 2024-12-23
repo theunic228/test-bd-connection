@@ -16,19 +16,22 @@ func AddEmployeesHandler(w http.ResponseWriter, r *http.Request) {
 
 	First_Name := r.FormValue("First_Name")
 	Last_Name := r.FormValue("Last_Name")
+	Patronymic := r.FormValue("Patronymic")
 	Email := r.FormValue("Email")
 	Password := r.FormValue("Password")
 	Department_Id := r.FormValue("Department_Id")
-	Hired_Date := r.FormValue("Hired_Date")
-	if First_Name == "" || Last_Name == "" || Email == "" || Password == "" || Department_Id == "" || Hired_Date == "" {
+	Position_id := r.FormValue("Position_Id")
+
+	if First_Name == "" || Last_Name == "" || Patronymic == "" || Email == "" || Password == "" || Department_Id == "" || Position_id == "" {
 		http.Error(w, "data are required", http.StatusBadRequest)
 		return
 	}
 
-	err := adds.AddEmployees(First_Name, Last_Name, Email, Password, Department_Id, Hired_Date)
+	err := adds.AddEmployees(First_Name, Last_Name, Patronymic, Email, Password, Department_Id, Position_id)
 	if err != nil {
+
 		http.Error(w, "Error adding Employees", http.StatusInternalServerError)
-		fmt.Println(err.Error())
+		fmt.Println(err)
 		return
 	}
 

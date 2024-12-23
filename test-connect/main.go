@@ -13,12 +13,14 @@ func main() {
 	fs := http.FileServer(http.Dir("./static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
+	//+
 	http.HandleFunc("/", handlers.AuthorizationHandler)
 	http.HandleFunc("/add_authorization", handlers.AddAuthorizationHandler)
 
 	http.HandleFunc("/main", handlers.MainPageHandler)
 	http.HandleFunc("/employees_main", handlers.EmployeesMainHandler)
 
+	//+
 	http.HandleFunc("/departments", handlers.DepartmentsHandler)
 	http.HandleFunc("/add_departments", handlers.AddDepartmentsHandler)
 
@@ -30,7 +32,9 @@ func main() {
 	http.HandleFunc("/history_base", handlers.HistoryBaseHandler)
 	http.HandleFunc("/download-csv", handlers.DownloadCSVHandler)
 
+	//+
 	http.HandleFunc("/statuses", handlers.StatusesHandler)
+	http.HandleFunc("/add_statuses", handlers.AddStatusesHandler)
 
 	http.HandleFunc("/task_assignees", handlers.TaskAssigneesHandler)
 
@@ -39,9 +43,13 @@ func main() {
 	http.HandleFunc("/tasks", handlers.TasksHandler)
 	http.HandleFunc("/add_tasks", handlers.AddTasksHandler)
 
+	//+
 	http.HandleFunc("/managments", handlers.ManagmentsHandler)
+	http.HandleFunc("/add_managments", handlers.AddManagmentsHandler)
 
+	//+
 	http.HandleFunc("/positions", handlers.PositionsHandler)
+	http.HandleFunc("/add_positions", handlers.AddPositionsHandler)
 
 	fmt.Println()
 	fmt.Println("⡆⣐⢕⢕⢕⢕⢕⢕⢕⢕⠅⢗⢕⢕⢕⢕⢕⢕⢕⠕⠕⢕⢕⢕⢕⢕⢕⢕⢕⢕")

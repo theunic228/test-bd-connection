@@ -13,7 +13,7 @@ type Employees struct {
 	Email         string
 	Password      string
 	Department_Id string
-	Position_id   string
+	Position_Id   string
 }
 
 func GetEmployees() ([]Employees, error) {
@@ -26,7 +26,7 @@ func GetEmployees() ([]Employees, error) {
 	var employees []Employees
 	for rows.Next() {
 		var e Employees
-		if err := rows.Scan(&e.Employee_Id, &e.First_Name, &e.Last_Name, &e.Patronymic, &e.Email, &e.Password, &e.Department_Id, &e.Position_id); err != nil {
+		if err := rows.Scan(&e.Employee_Id, &e.First_Name, &e.Last_Name, &e.Patronymic, &e.Email, &e.Password, &e.Department_Id, &e.Position_Id); err != nil {
 			fmt.Println(err)
 			return nil, err
 		}

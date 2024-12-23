@@ -15,6 +15,21 @@ func DepartmentsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	managments, err := gets.GetManagments()
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, "Error getting managments", http.StatusInternalServerError)
+		return
+	}
+
+	data := struct {
+		Departments []gets.Departments
+		Managments  []gets.Managments
+	}{
+		Departments: departments,
+		Managments:  managments,
+	}
+
 	tmpl, err := template.ParseFiles("templates/departments_page.html")
 
 	if err != nil {
@@ -23,7 +38,7 @@ func DepartmentsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = tmpl.Execute(w, departments)
+	err = tmpl.Execute(w, data)
 	if err != nil {
 		fmt.Println(err)
 		http.Error(w, "Error executing template", http.StatusInternalServerError)

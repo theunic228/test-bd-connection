@@ -33,12 +33,12 @@
 	<br>
 	<h2>Добавить новую задачу</h2>
 	<form action="/add_tasks" method="POST">
-		<label for="Title">Title:</label>
+		<label for="Title">Наименование:</label>
 		<input type="text" id="Title" name="Title" required><br>
-		<label for="Description">Description:</label>
+		<label for="Description">Описание:</label>
 		<input type="text" id="Description" name="Description" required><br>
 
-		<label for="Status">Status:</label>
+		<label for="Status">Статус:</label>
 		<select id="Status" name="Status" required>
 			<option value=""></option>
 			{{range .Statuses}}
@@ -46,14 +46,14 @@
 			{{end}}
 		</select><br>
 
-		<label for="Created_By">Created By:</label>
+		<label for="Created_By">Создатель:</label>
 		<select id="Created_By" name="Created_By" required>
 			<option value=""></option>
 			{{range .Employees}}
 			<option value="{{.Employee_Id}}">{{.Last_Name}}</option>
 			{{end}}
 		</select><br>
-		<label for="Due_Date">Due Date:</label>
+		<label for="Due_Date">Дедлайн:</label>
 		<input type="text" id="Due_Date" name="Due_Date" required><br>
 		<br>
 		<input type="submit" value="Add tasks">

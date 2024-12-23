@@ -22,7 +22,7 @@ type TaskDetails struct {
 }
 
 func GetTaskDetails() ([]TaskDetails, error) {
-	rows, err := database.DB.Query("select task_id, task_title, task_description, (select status_name from statuses s where s.status_id = task_status), (select e.last_name from employees e where e.employee_id = task_creator), task_created_at, task_due_date, (select e.last_name from employees e where e.employee_id = comment_author), comment_text, comment_created_at, file_name, file_path, file_uploaded_at  from task_details ")
+	rows, err := database.DB.Query("select task_id, COALESCE(task_title, 'не заполнено'), COALESCE(task_description, 'не заполнено'), COALESCE((select status_name from statuses s where s.status_id = task_status), 'не заполнено'), COALESCE((select e.last_name from employees e where e.employee_id = task_creator), 'не заполнено'), task_created_at, NULLIF(task_due_date, '2000-01-01')::DATE, COALESCE((select e.last_name from employees e where e.employee_id = comment_author), 'не заполнено'), COALESCE(comment_text, 'не заполнено'), comment_created_at, COALESCE(file_name, 'не заполнено'), COALESCE(file_path, 'не заполнено'), file_uploaded_at from task_details ")
 	if err != nil {
 		fmt.Println(err)
 		return nil, err

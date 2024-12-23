@@ -14,7 +14,7 @@
 			<th>Наименование отдела</th>
 			<th>Наименование вышестоящего отдела</th>
 		</tr>
-		{{range .}}
+		{{range .Departments}}
 		<tr>
 			<td>{{.Department_Id}}</td>
 			<td>{{.Department_Name}}</td>
@@ -23,13 +23,23 @@
 		{{end}}
 	</table>
 	<br>
-	<h2>Add New Department</h2>
+	<h2>Добавить новый отдел</h2>
 	<form action="/add_departments" method="POST">
-		<label for="Name">Name:</label>
-		<input type="text" id="Name" name="Name" required><br>
-		<label for="Description">Description:</label>
-		<input type="text" id="Description" name="Description" required><br>
-		<input type="submit" value="Add departments">
+		<label for="Department_Name">Наименование:</label>
+		<input type="text" id="Department_Name" name="Department_Name" required><br>
+
+		<!-- <label for="Managment_Id">Вышестоящие отделы:</label>
+		<input type="text" id="Managment_Id" name="Managment_Id" required><br> -->
+
+		<label for="Managment_Id">Вышестоящий отдел:</label>
+		<select id="Managment_Id" name="Managment_Id" required>
+			<option value=""></option>
+			{{range .Managments}}
+			<option value="{{.Managment_Name}}">{{.Managment_Name}}</option>
+			{{end}}
+		</select><br>
+		<br>
+		<input type="submit" value="Добавить отдел">
 	</form>
 
 	<button onclick="history.back()">Назад</button>

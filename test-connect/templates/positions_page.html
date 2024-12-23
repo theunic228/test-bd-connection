@@ -21,7 +21,13 @@
 		{{end}}
 	</table>
 	<br>
+	<h2>Добавить новую должность</h2>
+	<form action="/add_positions" method="POST">
+		<label for="Position_Name">Наименование:</label>
+		<input type="text" id="Position_Name" name="Position_Name" required><br>
 
+		<input type="submit" value="Добавить должность">
+	</form>
 	<button onclick="history.back()">Назад</button>
 </body>
 

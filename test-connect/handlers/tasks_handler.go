@@ -8,7 +8,7 @@ import (
 )
 
 func TasksHandler(w http.ResponseWriter, r *http.Request) {
-	// Исправляем вызов функции на существующий GetTasks
+
 	tasks, err := gets.GetTasks()
 	if err != nil {
 		fmt.Println(err)
@@ -19,14 +19,14 @@ func TasksHandler(w http.ResponseWriter, r *http.Request) {
 	statuses, err := gets.GetStatuses()
 	if err != nil {
 		fmt.Println(err)
-		http.Error(w, "Error getting tasks", http.StatusInternalServerError)
+		http.Error(w, "Error getting tasks + statuses", http.StatusInternalServerError)
 		return
 	}
 
 	employees, err := gets.GetEmployees()
 	if err != nil {
 		fmt.Println(err)
-		http.Error(w, "Error getting tasks", http.StatusInternalServerError)
+		http.Error(w, "Error getting tasks + employees", http.StatusInternalServerError)
 		return
 	}
 

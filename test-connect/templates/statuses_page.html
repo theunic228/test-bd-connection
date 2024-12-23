@@ -21,7 +21,15 @@
 		{{end}}
 	</table>
 	<br>
+	<br>
 
+	<h2>Добавить новый статус</h2>
+	<form action="/add_statuses" method="POST">
+		<label for="Status_Name">Наименование:</label>
+		<input type="text" id="Status_Name" name="Status_Name" required><br>
+
+		<input type="submit" value="Добавить статус">
+	</form>
 	<button onclick="history.back()">Назад</button>
 </body>
 

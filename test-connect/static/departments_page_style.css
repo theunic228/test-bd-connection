@@ -18,6 +18,12 @@ h2 {
     margin-bottom: 10px;
 }
 
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -44,25 +50,21 @@ table tr:hover {
     background-color: #eaf4fc;
 }
 
-label {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-input[type="text"] {
+input[type="text"], select {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     margin-top: 5px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
+    border: 1px solid #cfd8dc;
     border-radius: 4px;
+    background-color: #ffffff;
     box-sizing: border-box;
+    font-size: 1em;
+    color: #333;
 }
 
 input[type="submit"], button {
     background-color: #4a90e2;
-    color: white;
+    color: #ffffff;
     border: none;
     padding: 10px 20px;
     font-size: 1em;
@@ -80,9 +82,14 @@ input[type="submit"]:active, button:active {
 }
 
 form {
-    max-width: 400px;
+    max-width: 600px;
 }
 
 button {
     margin-top: 20px;
 }
+
+select {
+    cursor: pointer;
+}
+

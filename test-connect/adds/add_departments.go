@@ -6,7 +6,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
-func AddDepartments(Name, Description string) error {
-	_, err := database.DB.Exec("INSERT INTO \"PPV3\".departments (name, description) VALUES ($1, $2)", Name, Description)
+func AddDepartments(Department_Name, Managment_Id string) error {
+	_, err := database.DB.Exec("insert into departments (department_name, managment_id) values ($1, (select managment_id from managments m where m.managment_name = $2))", Department_Name, Managment_Id)
 	return err
 }
