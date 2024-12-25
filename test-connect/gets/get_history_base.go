@@ -11,7 +11,7 @@ type HistoryBase struct {
 }
 
 func GetHistoryBase() ([]HistoryBase, error) {
-	rows, err := database.DB.Query("select history_base_id, message_history, create_date from \"PPV3\".history_base")
+	rows, err := database.DB.Query("select history_id, history_text, create_date from history")
 	if err != nil {
 		return nil, err
 	}
